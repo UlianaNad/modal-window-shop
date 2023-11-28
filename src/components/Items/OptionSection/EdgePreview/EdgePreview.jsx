@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ChoiceWrap, FieldChoiceBottom, FieldChoiceLeft, FieldChoiceRight, FieldChoiceTop } from './EdgePriview.styled';
+import { ChoiceWrap, FieldChoiceBottom, FieldChoiceLeft, FieldChoiceRight, FieldChoiceTop } from './EdgePreview.styled';
 
-const EdgePreview = () => {
+const EdgePreview = ({handleEdgeSide}) => {
   const [checkedValues, setValue] = useState([]);
 
   useEffect(() => {
-    window.localStorage.setItem("checkedValues", JSON.stringify(checkedValues))
+    handleEdgeSide(checkedValues)
   },[checkedValues]);
   
   const handleChange = ({ target }) => {

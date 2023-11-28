@@ -1,29 +1,43 @@
 import React from 'react';
-import ChosenItem from './ChosenItem/ChosenItem';
-
-import OptionSection from './OptionSection/OptionSection';
+import Modal from './Items/Modal';
 import styled from 'styled-components';
 import { products } from './data/data';
+import { useState } from 'react';
+
 
 export const App = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [product, setProduct] = useState(null)
+
+  const toggleModal = (product) => {
+    setIsOpen(prev => !prev)
+    setProduct(product)
+  }
+
   return (
-    <BodyWrapper>
-      <ChosenItem products={products} />
-      <OptionSection products={products}/>
-    </BodyWrapper>
+    <Wrapper>
+      <ul>
+        {products.map(product => 
+          <Item onClick={()=>toggleModal(product)}  key={product.id}>{product.name}
+          <br />
+          <img src={product.image} alt={product.name} />
+          </Item>
+          )}
+      </ul>
+      {isOpen ? (<Modal product={product} close={toggleModal}/>) : null}
+    </Wrapper>
   );
 };
 
-const BodyWrapper = styled.div`
-padding: 10px;
+const Wrapper = styled.div`
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: nowrap;
   ul,
   li {
-    padding: 0;
-    margin: 0;
+    padding: 5px;
     list-style:none;
   }
   section {
@@ -31,4 +45,9 @@ padding: 10px;
     border: 1px solid black;
     padding: 15px;
   }
-`;
+  `;
+  const Item = styled.li`
+  border: 1px solid green;
+  border-radius: 10px;
+  margin: 5px;
+  `;

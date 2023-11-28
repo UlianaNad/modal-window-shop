@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import EdgePreview from './EdgePreview/EdgePreview';
+
 //import EdgePreview from './EdgePreview';
 // import SizesBlock from './SizesBlock.jsx/SizesBlock';
 // import SelectEdges from './SelectEdges/SelectEdges';
 
-const OptionSection = ({ products }) => {
+const OptionSection = ({product, close}) => {
+
+    console.log(product);
+     const{dimensions, offers} = product;
+
     const [customOptions, setCustomOptions] = useState({});
     const [possibleAmountOfPieces, setPossibleAmountOfPieces] = useState(null);
     const [cutItemPrice, setCutItemPrice] = useState(null);
@@ -11,29 +17,33 @@ const OptionSection = ({ products }) => {
     const [AmountOfCustomParticles, setAmountOfCustomParticles] = useState(null);
     const [edgeBlock, setEdgeBlock] = useState(false)
 
+
     useEffect(() => {
-        const startSquare = products[0].dimensions.width * products[0].dimensions.height;
+        const startSquare = dimensions.width * dimensions.height;
         const customSquare = customOptions.customHeight * customOptions.customWidth;
         setPossibleAmountOfPieces(Math.ceil(startSquare / customSquare))
-    }, [customOptions, products]);
+    }, [customOptions, dimensions]);
 
 
     useEffect(() => {
         if (customOptions.totalAmount !== null) {
-            setCutItemPrice(Math.round(products[0].offers.price / possibleAmountOfPieces))
+            setCutItemPrice(Math.round(offers.price / possibleAmountOfPieces))
         }
-    }, [customOptions, products, possibleAmountOfPieces]);
+    }, [customOptions, offers, possibleAmountOfPieces]);
 
     useEffect(() => {
         if (customOptions.totalAmount && AmountOfCustomParticles > 0)
-            setTotalPrice(Math.round(products[0].offers.price * AmountOfCustomParticles))
+            setTotalPrice(Math.round(offers.price * AmountOfCustomParticles))
         setAmountOfCustomParticles(Math.ceil(customOptions.totalAmount / possibleAmountOfPieces))
-    }, [products, customOptions.totalAmount, AmountOfCustomParticles, possibleAmountOfPieces]);
+    }, [offers, customOptions.totalAmount, AmountOfCustomParticles, possibleAmountOfPieces]);
 
+    useEffect(()=>{
+        window.localStorage.setItem("customOptions", JSON.stringify(customOptions))
+    },[customOptions])
 
     const handleChangeInput = ({ target }) => {
         if (target.name === 'width') {
-            if (target.value < 0 || target.value > products[0].dimensions.width) {
+            if (target.value < 0 || target.value > dimensions.width) {
                 alert('Check the size!');
             } else {
                 setCustomOptions({
@@ -44,7 +54,7 @@ const OptionSection = ({ products }) => {
         }
 
         if (target.name === 'height') {
-            if (target.value < 0 || target.value > products[0].dimensions.height) {
+            if (target.value < 0 || target.value > dimensions.height) {
                 alert('Write smaller size');
             } else {
                 setCustomOptions({
@@ -73,7 +83,8 @@ const OptionSection = ({ products }) => {
         setEdgeBlock(false)
         setCustomOptions({
             ...customOptions,
-            edgeWidth: null
+            edgeWidth: null,
+            edgeSides: null
         });
     }
 
@@ -86,13 +97,33 @@ const OptionSection = ({ products }) => {
         }
     }
 
+  
+    const handleEdgeSide = useCallback((data) => {
+        setCustomOptions({
+            ...customOptions,
+            edgeSides: data
+        });
+    }, [customOptions]);
+
+    const handleFormSubmit = (e) =>{
+        e.preventDefault();
+    
+          setCustomOptions({
+            ...customOptions,
+            possibleAmountOfPieces:possibleAmountOfPieces,
+            cutItemPrice:cutItemPrice,
+            totalPrice:totalPrice,
+            AmountOfCustomParticles:AmountOfCustomParticles,
+            edgeBlock:edgeBlock
+        });
+        close()
+    }
+
     return (
         <section className="option">
             <div className="modal-window">
                 <form
-                    onSubmit={e => {
-                        e.preventDefault();
-                    }}
+                    onSubmit={handleFormSubmit}
                     action=""
                     className="item-sizes-form"
                 >
@@ -112,7 +143,7 @@ const OptionSection = ({ products }) => {
                                     <span className="input-group-dimension-addon">mm</span>
                                 </label>
                                 <p>
-                                    Max: <span>{products[0].dimensions.width} mm</span>
+                                    Max: <span>{dimensions.width} mm</span>
                                 </p>
                             </li>
                             <li>
@@ -128,7 +159,7 @@ const OptionSection = ({ products }) => {
                                     <span className="input-group-dimension-addon">mm</span>
                                 </label>
                                 <p>
-                                    Max: <span>{products[0].dimensions.height} mm</span>
+                                    Max: <span>{dimensions.height} mm</span>
                                 </p>
                             </li>
                         </ul>
@@ -176,7 +207,7 @@ const OptionSection = ({ products }) => {
                         </button> *
                         {edgeBlock ? (
                             <div>
-                                {/* <EdgePreview /> */}
+                                <EdgePreview handleEdgeSide={handleEdgeSide}/>
                                 <div className="field position">
                                     <label className="edge-width">Вибрати ширину кромки:</label>
                                     <select
