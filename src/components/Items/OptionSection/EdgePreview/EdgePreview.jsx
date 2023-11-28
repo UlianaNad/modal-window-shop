@@ -6,7 +6,7 @@ const EdgePreview = ({handleEdgeSide}) => {
 
   useEffect(() => {
     handleEdgeSide(checkedValues)
-  },[checkedValues]);
+  },[checkedValues, handleEdgeSide]);
   
   const handleChange = ({ target }) => {
     const { value, checked } = target;
