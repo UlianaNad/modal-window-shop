@@ -7,10 +7,9 @@ const OptionSection = ({ products }) => {
     const [customOptions, setCustomOptions] = useState({});
     const [possibleAmountOfPieces, setPossibleAmountOfPieces] = useState(null);
     const [cutItemPrice, setCutItemPrice] = useState(null);
-
     const [totalPrice, setTotalPrice] = useState(null);
     const [AmountOfCustomParticles, setAmountOfCustomParticles] = useState(null);
-
+    const [edgeBlock, setEdgeBlock] = useState(false)
 
     useEffect(() => {
         const startSquare = products[0].dimensions.width * products[0].dimensions.height;
@@ -26,13 +25,10 @@ const OptionSection = ({ products }) => {
     }, [customOptions, products, possibleAmountOfPieces]);
 
     useEffect(() => {
-        if (customOptions.totalAmount && AmountOfCustomParticles>0)
+        if (customOptions.totalAmount && AmountOfCustomParticles > 0)
             setTotalPrice(Math.round(products[0].offers.price * AmountOfCustomParticles))
         setAmountOfCustomParticles(Math.ceil(customOptions.totalAmount / possibleAmountOfPieces))
     }, [products, customOptions.totalAmount, AmountOfCustomParticles, possibleAmountOfPieces]);
-
-
-
 
 
     const handleChangeInput = ({ target }) => {
@@ -70,6 +66,25 @@ const OptionSection = ({ products }) => {
 
     };
 
+    const handleOpenEdgeBlock = () => {
+        setEdgeBlock(true)
+    }
+    const handleCloseEdgeBlock = () => {
+        setEdgeBlock(false)
+        setCustomOptions({
+            ...customOptions,
+            edgeWidth: null
+        });
+    }
+
+    const handleChangeSelect = ({ target }) => {
+        if (target.name === 'edge-width') {
+            setCustomOptions({
+                ...customOptions,
+                edgeWidth: target.value
+            });
+        }
+    }
 
     return (
         <section className="option">
@@ -152,31 +167,32 @@ const OptionSection = ({ products }) => {
                     </div>
                     {/* <SizesBlock products={products} handleSizesSubmit={handleSizesSubmit} handleSubmit={handleSubmit} /> */}
                     <div className="edge-block">
-                        {/* <h4>Кромка</h4>
+                        <h4>Кромка</h4>
                         <button type="button" onClick={handleOpenEdgeBlock}>
                             Так
                         </button>
                         <button type="button" onClick={handleCloseEdgeBlock}>
                             Ні
-                        </button> */}
-                        {/* {toggleEdgeBlock ? (
+                        </button> *
+                        {edgeBlock ? (
                             <div>
-                                <EdgePreview />
+                                {/* <EdgePreview /> */}
                                 <div className="field position">
                                     <label className="edge-width">Вибрати ширину кромки:</label>
                                     <select
                                         onChange={handleChangeSelect}
                                         name="edge-width"
                                         id="edge-width"
-                                        value={option}
+
                                     >
+                                        <option value="">Виберіть ширину кромки </option>
                                         <option value="22*0.6">22*0.6 </option>
                                         <option value="22*2">22*2</option>
                                         <option value="42*2">42*2</option>
                                     </select>
                                 </div>
                             </div>
-                        ) : null} */}
+                        ) : null}
                     </div>
                     <button type="submit">Відправити до корзини</button>
                 </form>
