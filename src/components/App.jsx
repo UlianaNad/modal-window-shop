@@ -35,17 +35,18 @@ const Wrapper = styled.div`
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: nowrap;
+  font-family: Helvetica, Arial, sans-serif;
+
   ul,
   li {
-    padding: 5px;
     list-style:none;
   }
   section {
     width: 45%;
-    border: 1px solid black;
     padding: 15px;
   }
   `;
+  
   const Item = styled.li`
   border: 1px solid green;
   border-radius: 10px;

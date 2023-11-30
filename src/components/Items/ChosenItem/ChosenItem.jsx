@@ -1,6 +1,6 @@
 import React  from 'react';
 
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 const ChosenItem = ({product}) => {
@@ -27,22 +27,23 @@ const ChosenItem = ({product}) => {
   );
 };
 
-// ChosenItem.propTypes = {
-//   products: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       name: PropTypes.string.isRequired,
-//       dimensions: PropTypes.shape({
-//         height: PropTypes.number.isRequired,
-//         thickness: PropTypes.number.isRequired,
-//       }).isRequired,
-//       offers: PropTypes.shape({
-//         price: PropTypes.number.isRequired,
-//         priceCurrency: PropTypes.string.isRequired,
-//       }).isRequired,
-//       image: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-// };
+
 
 export default ChosenItem;
+
+ChosenItem.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    dimensions: PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+      thickness: PropTypes.number.isRequired,
+    }).isRequired,
+    offers: PropTypes.shape({
+      price: PropTypes.number.isRequired,
+      priceCurrency: PropTypes.string.isRequired,
+    }).isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
+};

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { ChoiceWrap, FieldChoiceBottom, FieldChoiceLeft, FieldChoiceRight, FieldChoiceTop } from './EdgePreview.styled';
+import { ChoiceWrap, FieldChoiceBottom, FieldChoiceLeft, FieldChoiceRight, FieldChoiceTop, SpanLabel, StyledInputCheckbox } from './EdgePreview.styled';
+import PropTypes from 'prop-types';
+import { StyledBlockName } from '../OptionSection.styled';
 
 const EdgePreview = ({handleEdgeSide}) => {
   const [checkedValues, setValue] = useState([]);
 
   useEffect(() => {
     handleEdgeSide(checkedValues)
-  },[checkedValues, handleEdgeSide]);
+  },[checkedValues,handleEdgeSide]);
   
   const handleChange = ({ target }) => {
     const { value, checked } = target;
@@ -17,7 +19,7 @@ const EdgePreview = ({handleEdgeSide}) => {
 
   const renderCheckbox = (name, label) => (
     <>
-      <input
+      <StyledInputCheckbox
         onChange={handleChange}
         className="validate-variable-product-one-required"
         type="checkbox"
@@ -25,7 +27,7 @@ const EdgePreview = ({handleEdgeSide}) => {
         value={name}
       />
       <label htmlFor={`rounded_corners_${name}`}>
-        <span>{label}</span>
+        <SpanLabel>{label}</SpanLabel>
       </label>
     </>
   );
@@ -34,17 +36,17 @@ const EdgePreview = ({handleEdgeSide}) => {
   return (
     <div className="edge-preview">
       <label className="label">
-        <span>Виберіть сторони для кромки:</span>
+        <StyledBlockName>Виберіть сторони для кромки:</StyledBlockName>
       </label>
       <div className="height-width-container">
         <div className="height-width">
           <div className="control">
             <ChoiceWrap>
               {[
-                { name: 'top-choice', label: 'Вгорі' },
-                { name: 'left-choice', label: 'Ліворуч' },
-                { name: 'choice-bottom', label: 'Внизу' },
-                { name: 'choice-right', label: 'Праворуч' },
+                { name: 'top-choice' },
+                { name: 'left-choice'  },
+                { name: 'choice-bottom' },
+                { name: 'choice-right' },
              
               ].map(({ name, label }) => (
                 <React.Fragment key={name}>
@@ -72,3 +74,7 @@ const EdgePreview = ({handleEdgeSide}) => {
 };
 
 export default EdgePreview;
+
+EdgePreview.propTypes = {
+  handleEdgeSide: PropTypes.func.isRequired,
+};
