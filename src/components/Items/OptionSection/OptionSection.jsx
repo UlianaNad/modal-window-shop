@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import EdgePreview from './EdgePreview/EdgePreview';
 import PropTypes from 'prop-types';
 import {
@@ -15,32 +15,36 @@ import {
   StyledTextArea,
 } from './OptionSection.styled';
 
-const OptionSection = ({ product, close }) => {
-  const { dimensions, offers } = product;
-
-  const [customOptions, setCustomOptions] = useState({});
+const OptionSection = ({ product, close, handleFormData }) => {
+  const { dimensions } = product;
+  const [customDimensions, setCustomDimensions] = useState({});
   const [edgeBlock, setEdgeBlock] = useState(false);
   const [patternDirection, setPatternDirection] = useState('horizontal');
   const [rotation, setRotation] = useState(0);
   const [comment, setComment] = useState('');
+  const [edgeWidth, setEdgeWidth] = useState('')
+  const [edgesSides, setEdgesSides] = useState({})
+  const [totalAmount, setTotalAmount] = useState(null)
 
   useEffect(() => {
     const dataToSave = {
-      customOptions,
+      customDimensions,
+      totalAmount,
       patternDirection,
       comment,
+      edgesSides,
+      edgeWidth,
     };
-    window.localStorage.setItem('customOptions', JSON.stringify(dataToSave));
-  }, [customOptions, edgeBlock, patternDirection, comment]);
+    window.localStorage.setItem(`customOptions${product.id}`, JSON.stringify(dataToSave));
+    handleFormData(dataToSave)
+  }, [customDimensions, edgeBlock, patternDirection, comment, handleFormData, edgesSides, edgeWidth, totalAmount, product]);
 
   const handleChangeInput = ({ target }) => {
     if (target.name === 'width' || target.name === 'height') {
       if (target.value >= 0 && target.value <= dimensions[target.name]) {
-        setCustomOptions(prevOptions => ({
+        setCustomDimensions(prevOptions => ({
           ...prevOptions,
-          [`custom${
-            target.name.charAt(0).toUpperCase() + target.name.slice(1)
-          }`]: target.value,
+          [`${target.name }`]: Number(target.value),
         }));
       } else {
         alert(`Check the ${target.name} size!`);
@@ -48,10 +52,7 @@ const OptionSection = ({ product, close }) => {
     }
 
     if (target.name === 'total-amount' && target.value > 0) {
-      setCustomOptions(prevOptions => ({
-        ...prevOptions,
-        totalAmount: target.value,
-      }));
+      setTotalAmount(target.value)
     }
   };
 
@@ -61,74 +62,24 @@ const OptionSection = ({ product, close }) => {
 
   const handleCloseEdgeBlock = () => {
     setEdgeBlock(false);
-    setCustomOptions({
-      ...customOptions,
-      edgeWidth: null,
-      edgeSides: null,
-    });
+    setEdgeWidth('')
+    setEdgesSides({})
   };
 
+
   const handleChangeSelect = ({ target }) => {
-    if (target.name === 'edge-width') {
-      setCustomOptions({
-        ...customOptions,
-        edgeWidth: target.value,
-      });
+    if (target.name === 'edge-width'){
+        setEdgeWidth(target.value)
     }
   };
 
-  const handleEdgeSide = useCallback(
-    data => {
-      setCustomOptions({
-        ...customOptions,
-        edgeSides: data,
-      });
-    },
-    [customOptions]
-  );
+  const handleEdgeSide = useCallback((data) => {
+      setEdgesSides(data)
+    },[]);
 
-  const computedValues = useMemo(() => {
-    const startSquare = dimensions.width * dimensions.height;
-    const customSquare = customOptions.customHeight * customOptions.customWidth;
-    const possibleAmountOfPieces = Math.ceil(startSquare / customSquare);
-    const cutItemPrice =
-      customOptions.totalAmount !== null
-        ? Math.round(offers.price / possibleAmountOfPieces)
-        : null;
-    const AmountOfCustomParticles = Math.ceil(
-      customOptions.totalAmount / possibleAmountOfPieces
-    );
-    const totalPrice =
-      customOptions.totalAmount && AmountOfCustomParticles > 0
-        ? Math.round(offers.price * AmountOfCustomParticles)
-        : null;
-
-    return {
-      possibleAmountOfPieces,
-      cutItemPrice,
-      AmountOfCustomParticles,
-      totalPrice,
-    };
-  }, [customOptions, dimensions, offers]);
 
   const handleFormSubmit = e => {
     e.preventDefault();
-
-    console.log('Before setting customOptions:', {
-      edgeBlock,
-      patternDirection,
-      comment,
-    });
-
-    if (edgeBlock && patternDirection !== undefined && comment !== undefined) {
-      setCustomOptions(prevOptions => ({
-        ...prevOptions,
-        ...computedValues,
-      }));
-    }
-
-    console.log('After setting customOptions:', customOptions);
-
     close();
   };
 
@@ -170,7 +121,6 @@ const OptionSection = ({ product, close }) => {
                     className="width"
                     placeholder="Ширина, мм"
                   />
-                  {/* <span className="input-group-dimension-addon">mm</span> */}
                 </StyledDivDimens>
                 <StyledP>
                   Max: <span>{dimensions.width} mm</span>
@@ -187,7 +137,6 @@ const OptionSection = ({ product, close }) => {
                     className="height"
                     placeholder="Довжина, мм"
                   />
-                  {/* <span className="input-group-dimension-addon">mm</span> */}
                 </StyledDivDimens>
                 <StyledP>
                   Max: <span>{dimensions.height} mm</span>
@@ -196,49 +145,14 @@ const OptionSection = ({ product, close }) => {
             </StyledDimensions>
             <p>
               Загальна кількість деталей по заданим розмірам:
-              <input
+              <StyledInput
                 onChange={handleChangeInput}
                 type="number"
                 name="total-amount"
+                placeholder='шт.'
               />
-              шт.
             </p>
-            <p>
-              Кількість листів у розкрої:
-              <span className="cut_piece">
-                {' '}
-                {computedValues.possibleAmountOfPieces
-                  ? computedValues.possibleAmountOfPieces
-                  : 0}
-              </span>
-              шт.
-            </p>
-            <p>
-              Ціна за 1 вирізаний лист:
-              <span>
-                {' '}
-                {computedValues.cutItemPrice
-                  ? computedValues.cutItemPrice
-                  : 0}{' '}
-              </span>
-              грн
-            </p>
-
-            <p>
-              Загальна кількість листів для порізки
-              <span>
-                {' '}
-                {computedValues.AmountOfCustomParticles
-                  ? computedValues.AmountOfCustomParticles
-                  : 0}
-              </span>
-              шт. i їх загальна вартість
-              <span>
-                {' '}
-                {computedValues.totalPrice ? computedValues.totalPrice : 0}
-              </span>
-              грн
-            </p>
+           
           </div>
           <div className="edge-block">
             <StyledBlockName>Кромка:</StyledBlockName>

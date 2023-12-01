@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 export const BodyWrapper = styled.div`
-padding: 10px;
+  color: #001a34;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -9,7 +10,7 @@ padding: 10px;
   li {
     padding: 0;
     margin: 0;
-    list-style:none;
+    list-style: none;
   }
   section {
     width: 45%;
@@ -33,13 +34,13 @@ export const StyledModal = styled.div`
   width: calc(100vw - 80px);
   height: calc(100vh - 80px);
   background-color: white;
-  overflow-y:scroll;
+  overflow-y: scroll;
   position: relative;
   padding: 20px;
 `;
 export const StyledCloseButton = styled.button`
-position: absolute;
-right: 10px;
+  position: absolute;
+  right: 10px;
   display: inline-block;
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -59,7 +60,7 @@ right: 10px;
   transition: 0.4s;
   text-transform: uppercase;
 
-  &:hover{
+  &:hover {
     background-color: #c48000;
   }
 `;
