@@ -5,6 +5,7 @@ export const StyledDivDimens = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  
 `;
 export const StyledDimensions = styled.ul`
   padding: 0;
@@ -12,6 +13,11 @@ export const StyledDimensions = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 425px) {
+    align-items: flex-start;
+    flex-direction: column; 
+  }
 `;
 
 export const StyledLi = styled.li`
@@ -36,6 +42,7 @@ export const StyledInput = styled.input`
     border-color: rgba(0, 161, 82, 0.5);
     box-shadow: 0 0 5px 1px #00a152;
   }
+
 `;
 export const StyledP = styled.p`
   font-size: 10px;
@@ -72,7 +79,7 @@ export const StyledButton = styled.button`
   border-radius: 4px;
   color: #fff;
   border: 0;
-  background: #00a152;
+  background-color: #00a152;
   min-width: 160px;
   position: relative;
   overflow: hidden;
@@ -81,6 +88,35 @@ export const StyledButton = styled.button`
 
   &:hover{
     background-color: #204b37;
+  }
+  @media (max-width: 425px) {
+    min-width: 100%;
+  }
+`;
+export const StyledMoreButton = styled.div`
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #fff;
+  border: 0;
+  background-color:#ffa700;
+  min-width: 160px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.4s;
+  text-transform: uppercase;
+
+  &:hover{
+    background-color: #c48000;
   }
 `;
 export const StyledSelect = styled.select`
@@ -115,4 +151,9 @@ export const StyledTextArea = styled.textarea`
     border-color: rgba(0, 161, 82, 0.5);
     box-shadow: 0 0 5px 1px #00a152;
   }
+`;
+export const WrapButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  
 `;

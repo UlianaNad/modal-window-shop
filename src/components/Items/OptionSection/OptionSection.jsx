@@ -1,19 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import EdgePreview from './EdgePreview/EdgePreview';
 import PropTypes from 'prop-types';
 import {
-  PatternRotation,
-  StyledBlockName,
   StyledButton,
-  StyledDimensions,
-  StyledDivDimens,
-  StyledImg,
-  StyledInput,
-  StyledLi,
-  StyledP,
-  StyledSelect,
-  StyledTextArea,
+  StyledMoreButton,
+  WrapButtons,
 } from './OptionSection.styled';
+import DetailDemansions from './DetailDimensions/DetailDemansions';
 
 const OptionSection = ({ product, close, handleFormData, language }) => {
   const { dimensions } = product;
@@ -22,9 +14,9 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
   const [patternDirection, setPatternDirection] = useState('horizontal');
   const [rotation, setRotation] = useState(0);
   const [comment, setComment] = useState('');
-  const [edgeWidth, setEdgeWidth] = useState('')
-  const [edgesSides, setEdgesSides] = useState({})
-  const [totalAmount, setTotalAmount] = useState(null)
+  const [edgeWidth, setEdgeWidth] = useState('');
+  const [edgesSides, setEdgesSides] = useState({});
+  const [totalAmount, setTotalAmount] = useState(null);
 
   useEffect(() => {
     const dataToSave = {
@@ -35,16 +27,29 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
       edgesSides,
       edgeWidth,
     };
-    window.localStorage.setItem(`customOptions${product.id}`, JSON.stringify(dataToSave));
-    handleFormData(dataToSave)
-  }, [customDimensions, edgeBlock, patternDirection, comment, handleFormData, edgesSides, edgeWidth, totalAmount, product]);
+    window.localStorage.setItem(
+      `customOptions${product.id}`,
+      JSON.stringify(dataToSave)
+    );
+    handleFormData(dataToSave);
+  }, [
+    customDimensions,
+    edgeBlock,
+    patternDirection,
+    comment,
+    handleFormData,
+    edgesSides,
+    edgeWidth,
+    totalAmount,
+    product,
+  ]);
 
   const handleChangeInput = ({ target }) => {
     if (target.name === 'width' || target.name === 'height') {
       if (target.value >= 0 && target.value <= dimensions[target.name]) {
         setCustomDimensions(prevOptions => ({
           ...prevOptions,
-          [`${target.name }`]: Number(target.value),
+          [`${target.name}`]: Number(target.value),
         }));
       } else {
         alert(`Check the ${target.name} size!`);
@@ -52,7 +57,7 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
     }
 
     if (target.name === 'total-amount' && target.value > 0) {
-      setTotalAmount(target.value)
+      setTotalAmount(target.value);
     }
   };
 
@@ -62,21 +67,19 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
 
   const handleCloseEdgeBlock = () => {
     setEdgeBlock(false);
-    setEdgeWidth('')
-    setEdgesSides({})
+    setEdgeWidth('');
+    setEdgesSides({});
   };
 
-
   const handleChangeSelect = ({ target }) => {
-    if (target.name === 'edge-width'){
-        setEdgeWidth(target.value)
+    if (target.name === 'edge-width') {
+      setEdgeWidth(target.value);
     }
   };
 
-  const handleEdgeSide = useCallback((data) => {
-      setEdgesSides(data)
-    },[]);
-
+  const handleEdgeSide = useCallback(data => {
+    setEdgesSides(data);
+  }, []);
 
   const handleFormSubmit = e => {
     e.preventDefault();
@@ -103,105 +106,38 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
     }
   };
 
+  const handleMoreDetail = e => {};
+
   return (
     <section className="option">
       <div className="modal-window">
         <form onSubmit={handleFormSubmit} action="" className="item-sizes-form">
-          <div className="item-sizes-block">
-            <StyledBlockName>{language ==="ua" ? "Розміри:" : "Рaзмeры:"}</StyledBlockName>
-            <StyledDimensions>
-              <StyledLi>
-                <StyledDivDimens>
-                  {/* Ширина */}
-                  <StyledInput
-                    onChange={handleChangeInput}
-                    type="number"
-                    name="width"
-                    id="width"
-                    className="width"
-                    placeholder={language ==="ua" ? "Ширина, мм" : "Ширина, мм"}
-                  />
-                </StyledDivDimens>
-                <StyledP>
-                  Max: <span>{dimensions.width} mm</span>
-                </StyledP>
-              </StyledLi>
-              <StyledLi>
-                <StyledDivDimens>
-                  {/* Висота */}
-                  <StyledInput
-                    onChange={handleChangeInput}
-                    type="number"
-                    name="height"
-                    id="height"
-                    className="height"
-                    placeholder={language ==="ua" ? "Висота, мм" : "Высота, мм"}
-                  />
-                </StyledDivDimens>
-                <StyledP>
-                  Max: <span>{dimensions.height} mm</span>
-                </StyledP>
-              </StyledLi>
-            </StyledDimensions>
-            <p>
-            {language ==="ua" ? "Загальна кількість деталей по заданим розмірам:" : "Общее количество деталей по заданым размерам:"}
-              <StyledInput
-                onChange={handleChangeInput}
-                type="number"
-                name="total-amount"
-                placeholder='шт.'
-              />
-            </p>
-           
+          <DetailDemansions
+            product={product}
+            handleOpenEdgeBlock={handleOpenEdgeBlock}
+            handleCloseEdgeBlock={handleCloseEdgeBlock}
+            handleChangeSelect={handleChangeSelect}
+            handleEdgeSide={handleEdgeSide}
+            handleChangeInput={handleChangeInput}
+            handleChangeComment={handleChangeComment}
+            handleImageClick={handleImageClick}
+            edgeBlock={edgeBlock}
+            edgesSides={edgesSides}
+            language={language}
+          />
+          <div>
+            
           </div>
-          <div className="edge-block">
-            <StyledBlockName>Кромка:</StyledBlockName>
-            <StyledButton type="button" onClick={handleOpenEdgeBlock}>
-            {language ==="ua" ? "Так" : "Да"}
+          <WrapButtons>
+            <StyledMoreButton onClick={handleMoreDetail}>
+              {language === 'ua' ? 'Додати деталь' : 'Добавить деталь'}
+            </StyledMoreButton>
+            <StyledButton type="submit">
+              {language === 'ua'
+                ? 'Відправити до корзини'
+                : 'Отправить в корзину'}
             </StyledButton>
-            <StyledButton type="button" onClick={handleCloseEdgeBlock}>
-            {language ==="ua" ? "Ні" : "Нет"}
-            </StyledButton>
-            {edgeBlock ? (
-              <div>
-                <EdgePreview language={language} handleEdgeSide={handleEdgeSide} />
-                <div className="field position">
-                  <StyledBlockName>{language ==="ua" ? "Вибрати ширину кромки:" : "Выбрать ширину кромки:"}</StyledBlockName>
-                  <StyledSelect
-                    onChange={handleChangeSelect}
-                    name="edge-width"
-                    id="edge-width"
-                  >
-                    <option value="">{language ==="ua" ? "Вибрати ширину кромки" : "Выбрать ширину кромки"} </option>
-                    <option value="22*0.6">22*0.6 </option>
-                    <option value="22*2">22*2</option>
-                    <option value="42*2">42*2</option>
-                  </StyledSelect>
-                </div>
-              </div>
-            ) : null}
-          </div>
-          <PatternRotation>
-            <StyledBlockName>{language ==="ua" ? "Обертання текстури:" : "Вращение текстуры:"}</StyledBlockName>
-            <StyledImg
-              onClick={handleImageClick}
-              src={require('./pattern.jpg')}
-              alt="pattern"
-            />
-          </PatternRotation>
-          <div className="comment">
-            <StyledBlockName>
-            {language ==="ua" ? "Залиште свій коментар щодо замовлення:" : "Оставьте свой коментарий к заказу:"}
-            </StyledBlockName>
-            <StyledTextArea
-              onChange={handleChangeComment}
-              name="comment"
-              id=""
-              cols="50"
-              rows="6"
-            ></StyledTextArea>
-          </div>
-          <StyledButton type="submit">{language ==="ua" ? "Відправити до корзини" : "Отправить в корзину"}</StyledButton>
+          </WrapButtons>
         </form>
       </div>
     </section>
@@ -219,9 +155,8 @@ OptionSection.propTypes = {
     }).isRequired,
   }).isRequired,
   close: PropTypes.func.isRequired,
-  handleFormData: PropTypes.func.isRequired, 
-  language: PropTypes.string.isRequired, 
+  handleFormData: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired,
 };
-
 
 export default OptionSection;

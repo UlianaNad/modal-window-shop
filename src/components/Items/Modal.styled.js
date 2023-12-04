@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
 export const BodyWrapper = styled.div`
   color: #001a34;
-  padding: 10px;
+
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -15,6 +16,14 @@ export const BodyWrapper = styled.div`
   section {
     width: 45%;
     padding: 15px;
+    
+  @media (max-width: 425px) {
+    width: 100%;
+  }
+  }
+  
+  @media (max-width: 425px) {
+    flex-direction: column;
   }
 `;
 
@@ -29,6 +38,7 @@ export const StyledOverlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1200;
+
 `;
 export const StyledModal = styled.div`
   width: calc(100vw - 80px);
@@ -37,6 +47,11 @@ export const StyledModal = styled.div`
   overflow-y: scroll;
   position: relative;
   padding: 20px;
+
+  
+  @media (max-width: 425px) {
+    padding: 0;
+  }
 `;
 export const StyledCloseButton = styled.button`
   position: absolute;
@@ -62,5 +77,8 @@ export const StyledCloseButton = styled.button`
 
   &:hover {
     background-color: #c48000;
+  }
+  @media (max-width: 425px) {
+    min-width: 100%;
   }
 `;

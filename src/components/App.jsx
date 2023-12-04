@@ -4,27 +4,27 @@ import styled from 'styled-components';
 import { products } from './data/data';
 import { useState } from 'react';
 
-
 export const App = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [product, setProduct] = useState(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [product, setProduct] = useState(null);
 
-  const toggleModal = (product) => {
-    setIsOpen(prev => !prev)
-    setProduct(product)
-  }
+  const toggleModal = product => {
+    setIsOpen(prev => !prev);
+    setProduct(product);
+  };
 
   return (
     <Wrapper>
-      <ul>
-        {products.map(product => 
-          <Item onClick={()=>toggleModal(product)}  key={product.id}>{product.name}
-          <br />
-          <img src={product.image} alt={product.name} />
+      <StyledUl>
+        {products.map(product => (
+          <Item onClick={() => toggleModal(product)} key={product.id}>
+            {product.name}
+            <br />
+            <img src={product.image} alt={product.name} />
           </Item>
-          )}
-      </ul>
-      {isOpen ? (<Modal product={product} close={toggleModal}/>) : null}
+        ))}
+      </StyledUl>
+      {isOpen ? <Modal product={product} close={toggleModal} /> : null}
     </Wrapper>
   );
 };
@@ -37,18 +37,26 @@ const Wrapper = styled.div`
   flex-wrap: nowrap;
   font-family: Helvetica, Arial, sans-serif;
 
-  ul,
-  li {
-    list-style:none;
-  }
   section {
     width: 45%;
     padding: 15px;
+
+    @media (max-width: 425px) {
+    width: 90%;
   }
-  `;
-  
-  const Item = styled.li`
+  }
+`;
+
+const StyledUl = styled.ul`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+`;
+const Item = styled.li`
+padding: 10px;
+width: calc(100%/3);
   border: 1px solid green;
   border-radius: 10px;
   margin: 5px;
-  `;
+  list-style: none;
+`;

@@ -88,5 +88,8 @@ export const StyledButton = styled.button.attrs(props => ({
   &:hover {
     background-color: #c48000;
   }
+  @media (max-width: 425px) {
+    min-width: 100%;
+  }
 `;
 StyledButton.shouldForwardProp = prop => prop !== 'isimageclicked';
