@@ -6,15 +6,19 @@ export const StyledOption = styled.span`
 export const Example = styled.div`
     width: 400px;
     height: 400px;
-    background-color: lightgrey;
+    background-color: rgb(0,161,82, 0.1);
     position: relative;
  
   /* Horizontal line */
   &::before {
-    content: '${(props) => (props.width !== undefined && props.width !== 0 ? props.width + 'px' : '350px')}';
+    content: '${(props) => (props.width !== undefined && props.width !== 0 ? props.width + 'mm' : '350mm')}';
     position: absolute;
+    display: flex;
+    justify-content: center;
     top: 10px; /* Move the top of the pseudo-element to the middle of the parent */
     left: 50%;
+    color: rgb(0,161,82);
+    font-weight: 600;
     transform: translateX(-50%);
     width: 80%;
     height: 2px;
@@ -24,8 +28,12 @@ export const Example = styled.div`
 
   /* Vertical line */
   &::after {
-    content: '${(props) => (props.height !== undefined && props.height !== 0 ? props.height + 'px' : '350px')}';
+    content: '${(props) => (props.height !== undefined && props.height !== 0 ? props.height + 'mm' : '350mm')}';
     position: absolute;
+    display: flex;
+    justify-content: center;
+    color: rgb(0,161,82);
+    font-weight: 600;
     top: 50%;
     left: 10px; /* Move the left side of the pseudo-element to the middle of the parent */
     transform: translateY(-50%); /* Center the pseudo-element horizontally */
@@ -33,19 +41,19 @@ export const Example = styled.div`
     height:  80%;
     background-color: grey; /* Change the color as needed */
     z-index: 1; /* Ensure the line is above the item's content */
+    writing-mode: vertical-lr; /* Vertical writing mode, right-to-left */
+  text-orientation: mixed;
   }
 `;
 
 export const ExampleItem = styled.div`
   width: ${(props) => (props.width !== undefined && props.width !== 0 ? props.width * props.scale + 'px' : '350px')};
   height: ${(props) => (props.height !== undefined && props.height !== 0 ? props.height * props.scale + 'px' : '350px')};
-  background-color: white;
-  border-top: ${(props) => (props.edge  === "top-choice" ? "5px solid green" : "1px solid")};
-  border-bottom: ${(props) => (props.edge  === "choice-bottom" ? "5px solid green" : "1px solid")};
-  border-left: ${(props) => (props.edge  === "left-choice" ? "5px solid green" : "1px solid")};
-  border-right: ${(props) => (props.edge  === "choice-right" ? "5px solid green" : "1px solid")};
- 
-
+  background-color: transparent;
+  border-top: ${(props) => (props.edgesSides  === "top-choice" ? "10px solid rgb(0,161,82)" : "1px solid rgb(0,161,82, 0.5)")};
+  border-bottom: ${(props) => (props.edgesSides  === "choice-bottom" ? "10px solid rgb(0,161,82)" : "1px solid rgb(0,161,82, 0.5)")};
+  border-left: ${(props) => (props.edgesSides  === "left-choice" ? "10px solid rgb(0,161,82)" : "1px solid rgb(0,161,82, 0.5)")};
+  border-right: ${(props) => (props.edgesSides  === "choice-right" ? "10px solid rgb(0,161,82)" : "1px solid rgb(0,161,82, 0.5)")};
   position: absolute;
   top: 50%;
   left: 50%;
@@ -54,7 +62,9 @@ export const ExampleItem = styled.div`
 
 
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button.attrs(props => ({
+  isimageclicked: props.isimageclicked ? 'true' : null,
+}))`
   display: inline-block;
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -68,7 +78,7 @@ export const StyledButton = styled.button`
   border-radius: 4px;
   color: #fff;
   border: 0;
-  background-color: ${(props) => (props.isOpenImg ? '#ffa700' : 'grey')};
+  background-color: ${(props) => (props.isimageclicked ? '#ffa700' : 'grey')};
 
   min-width: 160px;
   overflow: hidden;
@@ -79,3 +89,4 @@ export const StyledButton = styled.button`
     background-color: #c48000;
   }
 `;
+StyledButton.shouldForwardProp = prop => prop !== 'isimageclicked';

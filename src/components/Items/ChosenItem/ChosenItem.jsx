@@ -7,10 +7,9 @@ import {
   StyledOption,
 } from './ChosenItem.styled';
 
-const ChosenItem = ({ product, values, options }) => {
-  console.log(options);
+const ChosenItem = ({ product, values, options, language }) => {
   const [scale, setScale] = useState(null);
-  const [isImageOpen, setIsImageOpen] = useState(true);
+  const [isimageclicked, setisimageclicked] = useState(true);
   const [isExampleOpen, setIsExampleOpen] = useState(false);
 
   useEffect(() => {
@@ -46,51 +45,65 @@ const ChosenItem = ({ product, values, options }) => {
   }, [options]);
 
   const handleImage = () => {
-    setIsImageOpen(true);
+    setisimageclicked(true);
     setIsExampleOpen(false);
   };
 
   const handleExample = () => {
-    setIsImageOpen(false);
+    setisimageclicked(false);
     setIsExampleOpen(true);
   };
   return (
     <section>
       <h2 className="item-name">{product.name}</h2>
       <p>
-        <StyledOption>Розмір товару:</StyledOption> товщина{' '}
-        {product.dimensions.width} мм і висота {product.dimensions.height} мм
+        <StyledOption>
+          {language === 'ua' ? 'Розмір товару:' : 'Розмeр товара:'}
+        </StyledOption>{' '}
+        {language === 'ua' ? 'ширина' : 'ширина'}
+        {product.dimensions.width} мм{' '}
+        {language === 'ua' ? 'і висота' : 'и высота'}{' '}
+        {product.dimensions.height} мм
       </p>
       <p>
-        <StyledOption>Товщина листа: </StyledOption>
+        <StyledOption>
+          {language === 'ua' ? 'Товщина листа:' : 'Толщина листа:'}{' '}
+        </StyledOption>
         {product.dimensions.thickness} мм
       </p>
       <p>
-        <StyledOption>Ціна за 1 лист: </StyledOption>
+        <StyledOption>
+          {language === 'ua' ? 'Ціна за 1 лист: ' : 'Цена за 1 лист: '}
+        </StyledOption>
         {product.offers.price} {product.offers.priceCurrency}
       </p>
       <div>
         <StyledButton
-          isOpenImg={isImageOpen ? isImageOpen : null}
+          isimageclicked={isimageclicked ? 'true' : null}
           onClick={handleImage}
         >
-          Обраний товар
+          {language === 'ua' ? 'Обраний товар' : 'Выбраный товар'}
         </StyledButton>
 
         <StyledButton
-          isOpenImg={isExampleOpen ? isExampleOpen : null}
+          isimageclicked={isExampleOpen ? 'true' : null}
           onClick={handleExample}
         >
-          Візуалізація порізки
+          {language === 'ua' ? 'Візуалізація порізки' : 'Визуализация порезки'}
         </StyledButton>
       </div>
-      {isImageOpen ? (
+      {isimageclicked ? (
         <img src={product.image} alt="" />
       ) : (
         <Example
           width={options?.customDimensions?.width}
           height={options?.customDimensions?.height}
         >
+          <ExampleItem
+            width={options?.customDimensions?.width}
+            height={options?.customDimensions?.height}
+            scale={scale}
+          />
           {Array.isArray(options?.edgesSides) &&
             options.edgesSides.map((edge, i) => (
               <ExampleItem
@@ -98,27 +111,37 @@ const ChosenItem = ({ product, values, options }) => {
                 width={options?.customDimensions?.width}
                 height={options?.customDimensions?.height}
                 scale={scale}
-                edge={edge}
+                edgesSides={edge}
               ></ExampleItem>
             ))}
         </Example>
       )}
 
       <div>
-        <h2>Параметри розкрою</h2>
+        <h2>{language === 'ua' ? 'Параметри розкрою' : 'Параметры разкроя'}</h2>
         <p>
-          <StyledOption>Кількість листів у розкрої:</StyledOption>
-          {values.possibleAmountOfPieces
-            ? values.possibleAmountOfPieces
-            : 0}{' '}
+          <StyledOption>
+            {language === 'ua'
+              ? 'Кількість листів у розкрої:'
+              : 'Количество листов в разкрое:'}
+          </StyledOption>
+          {values.possibleAmountOfPieces ? values.possibleAmountOfPieces : 0}
           шт.
         </p>
         <p>
-          <StyledOption>Ціна за 1 вирізаний лист:</StyledOption>
+          <StyledOption>
+            {language === 'ua'
+              ? 'Ціна за 1 вирізаний лист:'
+              : 'Цена за 1 вырезаный лист:'}
+          </StyledOption>
           <span> {values.cutItemPrice ? values.cutItemPrice : 0} грн</span>
         </p>
         <p>
-          <StyledOption>Загальна кількість листів для порізки:</StyledOption>
+          <StyledOption>
+            {language === 'ua'
+              ? 'Загальна кількість листів для порізки:'
+              : 'Общее количество листов для порезки:'}
+          </StyledOption>
           <span>
             {values.AmountOfCustomParticles
               ? values.AmountOfCustomParticles
@@ -127,7 +150,9 @@ const ChosenItem = ({ product, values, options }) => {
           </span>
         </p>
         <p>
-          <StyledOption>Загальна вартість:</StyledOption>
+          <StyledOption>
+            {language === 'ua' ? 'Загальна вартість:' : 'Общяя стоимость:'}
+          </StyledOption>
           <span> {values.totalPrice ? values.totalPrice : 0}</span> грн
         </p>
       </div>
@@ -152,4 +177,17 @@ ChosenItem.propTypes = {
     }).isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
+  values: PropTypes.shape({
+    possibleAmountOfPieces: PropTypes.number,
+    cutItemPrice: PropTypes.number,
+    AmountOfCustomParticles: PropTypes.number,
+    totalPrice: PropTypes.number,
+  }).isRequired,
+  options: PropTypes.shape({
+    customDimensions: PropTypes.shape({
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
+  }),
+  language: PropTypes.string,
 };

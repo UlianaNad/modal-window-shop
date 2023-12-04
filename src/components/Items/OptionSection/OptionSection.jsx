@@ -15,7 +15,7 @@ import {
   StyledTextArea,
 } from './OptionSection.styled';
 
-const OptionSection = ({ product, close, handleFormData }) => {
+const OptionSection = ({ product, close, handleFormData, language }) => {
   const { dimensions } = product;
   const [customDimensions, setCustomDimensions] = useState({});
   const [edgeBlock, setEdgeBlock] = useState(false);
@@ -108,7 +108,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
       <div className="modal-window">
         <form onSubmit={handleFormSubmit} action="" className="item-sizes-form">
           <div className="item-sizes-block">
-            <StyledBlockName>Розміри:</StyledBlockName>
+            <StyledBlockName>{language ==="ua" ? "Розміри:" : "Рaзмeры:"}</StyledBlockName>
             <StyledDimensions>
               <StyledLi>
                 <StyledDivDimens>
@@ -119,7 +119,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
                     name="width"
                     id="width"
                     className="width"
-                    placeholder="Ширина, мм"
+                    placeholder={language ==="ua" ? "Ширина, мм" : "Ширина, мм"}
                   />
                 </StyledDivDimens>
                 <StyledP>
@@ -135,7 +135,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
                     name="height"
                     id="height"
                     className="height"
-                    placeholder="Довжина, мм"
+                    placeholder={language ==="ua" ? "Висота, мм" : "Высота, мм"}
                   />
                 </StyledDivDimens>
                 <StyledP>
@@ -144,7 +144,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
               </StyledLi>
             </StyledDimensions>
             <p>
-              Загальна кількість деталей по заданим розмірам:
+            {language ==="ua" ? "Загальна кількість деталей по заданим розмірам:" : "Общее количество деталей по заданым размерам:"}
               <StyledInput
                 onChange={handleChangeInput}
                 type="number"
@@ -157,22 +157,22 @@ const OptionSection = ({ product, close, handleFormData }) => {
           <div className="edge-block">
             <StyledBlockName>Кромка:</StyledBlockName>
             <StyledButton type="button" onClick={handleOpenEdgeBlock}>
-              Так
+            {language ==="ua" ? "Так" : "Да"}
             </StyledButton>
             <StyledButton type="button" onClick={handleCloseEdgeBlock}>
-              Ні
+            {language ==="ua" ? "Ні" : "Нет"}
             </StyledButton>
             {edgeBlock ? (
               <div>
-                <EdgePreview handleEdgeSide={handleEdgeSide} />
+                <EdgePreview language={language} handleEdgeSide={handleEdgeSide} />
                 <div className="field position">
-                  <StyledBlockName>Вибрати ширину кромки:</StyledBlockName>
+                  <StyledBlockName>{language ==="ua" ? "Вибрати ширину кромки:" : "Выбрать ширину кромки:"}</StyledBlockName>
                   <StyledSelect
                     onChange={handleChangeSelect}
                     name="edge-width"
                     id="edge-width"
                   >
-                    <option value="">Виберіть ширину кромки </option>
+                    <option value="">{language ==="ua" ? "Вибрати ширину кромки" : "Выбрать ширину кромки"} </option>
                     <option value="22*0.6">22*0.6 </option>
                     <option value="22*2">22*2</option>
                     <option value="42*2">42*2</option>
@@ -182,7 +182,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
             ) : null}
           </div>
           <PatternRotation>
-            <StyledBlockName>Обертання текстури:</StyledBlockName>
+            <StyledBlockName>{language ==="ua" ? "Обертання текстури:" : "Вращение текстуры:"}</StyledBlockName>
             <StyledImg
               onClick={handleImageClick}
               src={require('./pattern.jpg')}
@@ -191,7 +191,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
           </PatternRotation>
           <div className="comment">
             <StyledBlockName>
-              Залиште свій коментар щодо замовлення:
+            {language ==="ua" ? "Залиште свій коментар щодо замовлення:" : "Оставьте свой коментарий к заказу:"}
             </StyledBlockName>
             <StyledTextArea
               onChange={handleChangeComment}
@@ -201,7 +201,7 @@ const OptionSection = ({ product, close, handleFormData }) => {
               rows="6"
             ></StyledTextArea>
           </div>
-          <StyledButton type="submit">Відправити до корзини</StyledButton>
+          <StyledButton type="submit">{language ==="ua" ? "Відправити до корзини" : "Отправить в корзину"}</StyledButton>
         </form>
       </div>
     </section>
@@ -219,6 +219,9 @@ OptionSection.propTypes = {
     }).isRequired,
   }).isRequired,
   close: PropTypes.func.isRequired,
+  handleFormData: PropTypes.func.isRequired, 
+  language: PropTypes.string.isRequired, 
 };
+
 
 export default OptionSection;

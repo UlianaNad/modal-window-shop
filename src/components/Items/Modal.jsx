@@ -7,9 +7,9 @@ import { BodyWrapper, StyledModal, StyledOverlay, StyledCloseButton } from './Mo
 
 
 const Modal = ({ product, close }) => {
-  console.log(product);
   const { dimensions, offers } = product;
   const [options, setOptions] = useState({})
+  const [language, setLanguage] = useState('ua')
 
   const computedValues = useMemo(() => {
     const{customDimensions} = options
@@ -19,7 +19,7 @@ const Modal = ({ product, close }) => {
     const customSquare = customDimensions?.width * customDimensions?.height;
   
     const possibleAmountOfPieces = Math.ceil(startSquare / customSquare);
-    console.log(possibleAmountOfPieces);
+
     const cutItemPrice =
       options.totalAmount !== null
         ? Math.round(offers.price / possibleAmountOfPieces)
@@ -51,16 +51,31 @@ const Modal = ({ product, close }) => {
     setOptions(data)
     
   },[])
-  console.log(options);
+
+  const handleClickChangeLanguage = (e) => {
+    if (e.target.dataset.lang === "ua") {
+      setLanguage('ua');
+    } else if (e.target.dataset.lang === "ru") {
+      setLanguage('ru');
+    }
+  };
+  
+
   return (
 
     <StyledOverlay onClick={handleClickOutside}>
       <StyledModal>
-      <StyledCloseButton onClick={close}>Закрити</StyledCloseButton>
+        <div>
+          <button data-lang="ua" onClick={handleClickChangeLanguage}>ua</button>
+          <button data-lang="ru" onClick={handleClickChangeLanguage}>ru</button>
+        </div>
+      <StyledCloseButton onClick={close}>{language==="ua" ? "Закрити" : "Закрыть"}</StyledCloseButton>
+
         <BodyWrapper>
-          <ChosenItem product={product} values={computedValues} options={options}/>
-          <OptionSection product={product} close={close} handleFormData={handleFormData}/>
+          <ChosenItem  language={language} product={product} values={computedValues} options={options}/>
+          <OptionSection language={language}  product={product} close={close} handleFormData={handleFormData}/>
         </BodyWrapper>
+        
       </StyledModal>
     </StyledOverlay>
 
@@ -80,5 +95,6 @@ Modal.propTypes = {
     }).isRequired,
   }).isRequired,
   close: PropTypes.func.isRequired,
+  language: PropTypes.string, 
 };
 

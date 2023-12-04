@@ -3,7 +3,7 @@ import { ChoiceWrap, FieldChoiceBottom, FieldChoiceLeft, FieldChoiceRight, Field
 import PropTypes from 'prop-types';
 import { StyledBlockName } from '../OptionSection.styled';
 
-const EdgePreview = ({handleEdgeSide}) => {
+const EdgePreview = ({handleEdgeSide, language}) => {
   const [checkedValues, setValue] = useState([]);
 
   useEffect(() => {
@@ -32,11 +32,10 @@ const EdgePreview = ({handleEdgeSide}) => {
     </>
   );
 
-  console.log(checkedValues);
   return (
     <div className="edge-preview">
       <label className="label">
-        <StyledBlockName>Виберіть сторони для кромки:</StyledBlockName>
+        <StyledBlockName>{language ==="ua" ? "Вибрати сторони для кромки:" : "Выбрать стороны для кромки:"}</StyledBlockName>
       </label>
       <div className="height-width-container">
         <div className="height-width">
