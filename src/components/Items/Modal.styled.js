@@ -20,7 +20,7 @@ export const BodyWrapper = styled.div`
   @media (max-width: 425px) {
     width: 100%;
   }
-  }
+}
   
   @media (max-width: 425px) {
     flex-direction: column;
@@ -38,7 +38,6 @@ export const StyledOverlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1200;
-  overflow-y: auto; 
 `;
 
 export const StyledModal = styled.div`

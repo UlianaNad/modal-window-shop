@@ -32,6 +32,7 @@ export const App = () => {
         ))}
       </StyledUl>
       {isOpen ? <Modal product={product} close={toggleModal} /> : null}
+      <div height='1200px' ></div>
     </AppWrapper>
   );
 };
