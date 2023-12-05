@@ -18,11 +18,10 @@ export const App = () => {
 
     setIsOpen(prev => !prev);
     setProduct(product);
-
   };
 
   return (
-    <Wrapper>
+    <AppWrapper>
       <StyledUl>
         {products.map(product => (
           <Item onClick={() => toggleModal(product)} key={product.id}>
@@ -33,11 +32,11 @@ export const App = () => {
         ))}
       </StyledUl>
       {isOpen ? <Modal product={product} close={toggleModal} /> : null}
-    </Wrapper>
+    </AppWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const AppWrapper = styled.div`
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -50,11 +49,8 @@ const Wrapper = styled.div`
     padding: 15px;
 
     @media (max-width: 425px) {
-    width: 90%;
-  }
-  body.modal-open & {
-    overflow: hidden;
-  }
+      width: 90%;
+    }
   }
 `;
 
@@ -63,9 +59,10 @@ const StyledUl = styled.ul`
   justify-content: space-around;
   flex-wrap: nowrap;
 `;
+
 const Item = styled.li`
-padding: 10px;
-width: calc(100%/3);
+  padding: 10px;
+  width: calc(100% / 3);
   border: 1px solid green;
   border-radius: 10px;
   margin: 5px;
