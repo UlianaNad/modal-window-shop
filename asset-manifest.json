@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/modal-window-shop/static/css/main.16d73904.css",
-    "main.js": "/modal-window-shop/static/js/main.0ac095f1.js",
+    "main.js": "/modal-window-shop/static/js/main.ee384ab9.js",
     "index.html": "/modal-window-shop/index.html",
     "main.16d73904.css.map": "/modal-window-shop/static/css/main.16d73904.css.map",
-    "main.0ac095f1.js.map": "/modal-window-shop/static/js/main.0ac095f1.js.map"
+    "main.ee384ab9.js.map": "/modal-window-shop/static/js/main.ee384ab9.js.map"
   },
   "entrypoints": [
     "static/css/main.16d73904.css",
-    "static/js/main.0ac095f1.js"
+    "static/js/main.ee384ab9.js"
   ]
 }
