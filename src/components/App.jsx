@@ -9,8 +9,16 @@ export const App = () => {
   const [product, setProduct] = useState(null);
 
   const toggleModal = product => {
+    const body = document.body;
+    if (isOpen) {
+      body.classList.add('modal-open');
+    } else {
+      body.classList.remove('modal-open');
+    }
+
     setIsOpen(prev => !prev);
     setProduct(product);
+
   };
 
   return (
