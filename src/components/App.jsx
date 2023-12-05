@@ -10,7 +10,7 @@ export const App = () => {
 
   const toggleModal = product => {
     const body = document.body;
-    if (isOpen) {
+    if (!isOpen) {
       body.classList.add('modal-open');
     } else {
       body.classList.remove('modal-open');
