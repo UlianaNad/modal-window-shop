@@ -25,6 +25,9 @@ export const BodyWrapper = styled.div`
   @media (max-width: 425px) {
     flex-direction: column;
   }
+  &.modal-open {
+    overflow: hidden;
+  }
 `;
 
 export const StyledOverlay = styled.div`
