@@ -90,7 +90,10 @@ export const StyledButton = styled.button`
     background-color: #204b37;
   }
   @media (max-width: 425px) {
-    min-width: 100%;
+    min-width: 47%;
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-right: 0;
   }
 `;
 export const StyledMoreButton = styled.div`
@@ -118,6 +121,11 @@ export const StyledMoreButton = styled.div`
   &:hover{
     background-color: #c48000;
   }
+  @media (max-width: 425px) {
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-right: 0;
+    }
 `;
 export const StyledSelect = styled.select`
 width: 250px;
@@ -128,10 +136,12 @@ width: 250px;
     padding: 10px 20px;
     outline: none;
     color: rgb(87, 75, 65);
-    margin-bottom: 5px;
     display: block;
     background: rgb(248, 248, 248);
     border-radius: 0px;
+    @media (max-width: 425px) {
+      width: 100%;
+    }
 `;
 export const StyledTextArea = styled.textarea`
   width: 99%;
@@ -151,9 +161,19 @@ export const StyledTextArea = styled.textarea`
     border-color: rgba(0, 161, 82, 0.5);
     box-shadow: 0 0 5px 1px #00a152;
   }
+  @media (max-width: 425px) {
+      width: 94%;
+    }
 `;
 export const WrapButtons = styled.div`
   display: flex;
   flex-direction: column;
   
+`;
+
+export const WrapperButtons = styled.div`
+  @media (max-width: 425px) {
+      display: flex;
+      gap: 10px;
+    }
 `;

@@ -104,5 +104,8 @@ export const StyledItemName = styled.h1`
 `;
 
 export const HiddenOnPhone = styled.div`
+@media (max-width: 425px) {
   display: none;
+  }
+  
 `;

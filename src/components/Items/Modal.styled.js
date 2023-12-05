@@ -16,12 +16,12 @@ export const BodyWrapper = styled.div`
   section {
     width: 45%;
     padding: 15px;
-    
-  @media (max-width: 425px) {
-    width: 100%;
+
+    @media (max-width: 425px) {
+      width: 100%;
+    }
   }
-}
-  
+
   @media (max-width: 425px) {
     flex-direction: column;
   }
@@ -48,7 +48,6 @@ export const StyledModal = styled.div`
   position: relative;
   padding: 20px;
 
-  
   @media (max-width: 425px) {
     padding: 10px;
   }
@@ -71,7 +70,6 @@ export const StyledCloseButton = styled.button`
   border: 0;
   background: #ffa700;
   min-width: 160px;
-  overflow: hidden;
   transition: 0.4s;
   text-transform: uppercase;
 
@@ -79,7 +77,12 @@ export const StyledCloseButton = styled.button`
     background-color: #c48000;
   }
   @media (max-width: 425px) {
-    width:150px;
-    margin-bottom: 10px;
+    min-width: 90px;
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-bottom: 0;
+    position: fixed;
+    right: 30px;
+    top: 40px;
   }
 `;

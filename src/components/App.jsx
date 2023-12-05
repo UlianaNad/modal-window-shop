@@ -56,14 +56,11 @@ const AppWrapper = styled.div`
 `;
 
 const StyledUl = styled.ul`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: nowrap;
+
 `;
 
 const Item = styled.li`
   padding: 10px;
-  width: calc(100% / 3);
   border: 1px solid green;
   border-radius: 10px;
   margin: 5px;
