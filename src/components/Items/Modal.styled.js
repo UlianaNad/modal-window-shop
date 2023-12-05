@@ -38,12 +38,6 @@ export const StyledOverlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1200;
-
-  @media (max-width: 425px) {
-    width: 100%;
-    height: 100%;
-  }
-
 `;
 export const StyledModal = styled.div`
   width: calc(100vw - 80px);
