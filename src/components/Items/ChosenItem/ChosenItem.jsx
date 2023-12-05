@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Example,
   ExampleItem,
+  HiddenOnPhone,
   StyledButton,
   StyledItemName,
   StyledOption,
@@ -66,18 +67,20 @@ const ChosenItem = ({ product, values, options, language }) => {
         {language === 'ua' ? 'і висота' : 'и высота'}{' '}
         {product.dimensions.height} мм
       </p>
-      <p>
-        <StyledOption>
-          {language === 'ua' ? 'Товщина листа:' : 'Толщина листа:'}{' '}
-        </StyledOption>
-        {product.dimensions.thickness} мм
-      </p>
-      <p>
-        <StyledOption>
-          {language === 'ua' ? 'Ціна за 1 лист: ' : 'Цена за 1 лист: '}
-        </StyledOption>
-        {product.offers.price} {product.offers.priceCurrency}
-      </p>
+      <HiddenOnPhone>
+        <p>
+          <StyledOption>
+            {language === 'ua' ? 'Товщина листа:' : 'Толщина листа:'}{' '}
+          </StyledOption>
+          {product.dimensions.thickness} мм
+        </p>
+        <p>
+          <StyledOption>
+            {language === 'ua' ? 'Ціна за 1 лист: ' : 'Цена за 1 лист: '}
+          </StyledOption>
+          {product.offers.price} {product.offers.priceCurrency}
+        </p>
+     
       <div>
         <StyledButton
           isimageclicked={isimageclicked ? 'true' : null}
@@ -117,7 +120,7 @@ const ChosenItem = ({ product, values, options, language }) => {
             ))}
         </Example>
       )}
-
+ </HiddenOnPhone>
       <div>
         <h2>{language === 'ua' ? 'Параметри розкрою' : 'Параметры разкроя'}</h2>
         <p>
