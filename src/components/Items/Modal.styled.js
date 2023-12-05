@@ -41,7 +41,9 @@ export const StyledOverlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1200;
+  overflow-y: auto; 
 `;
+
 export const StyledModal = styled.div`
   width: calc(100vw - 80px);
   height: calc(100vh - 80px);

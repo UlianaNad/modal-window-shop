@@ -52,6 +52,9 @@ const Wrapper = styled.div`
     @media (max-width: 425px) {
     width: 90%;
   }
+  body.modal-open & {
+    overflow: hidden;
+  }
   }
 `;
 
