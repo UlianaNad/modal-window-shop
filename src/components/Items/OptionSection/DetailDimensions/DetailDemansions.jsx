@@ -46,17 +46,17 @@ const DetailDemansions = ({product, language, handleChangeInput ,handleOpenEdgeB
                 </StyledP>
               </StyledLi>
             </StyledDimensions>
-            <p>
+            <StyledBlockName>
               {language === 'ua'
                 ? 'Загальна кількість деталей по заданим розмірам:'
                 : 'Общее количество деталей по заданым размерам:'}
-              <StyledInput
+            </StyledBlockName>
+            <StyledInput
                 onChange={handleChangeInput}
                 type="number"
                 name="total-amount"
                 placeholder="шт."
               />
-            </p>
           </div>
           <div className="edge-block">
             <StyledBlockName>Кромка:</StyledBlockName>

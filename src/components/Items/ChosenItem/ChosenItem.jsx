@@ -4,6 +4,7 @@ import {
   Example,
   ExampleItem,
   StyledButton,
+  StyledItemName,
   StyledOption,
 } from './ChosenItem.styled';
 
@@ -55,7 +56,7 @@ const ChosenItem = ({ product, values, options, language }) => {
   };
   return (
     <section>
-      <h2 className="item-name">{product.name}</h2>
+      <StyledItemName>{product.name}</StyledItemName>
       <p>
         <StyledOption>
           {language === 'ua' ? 'Розмір товару:' : 'Розмeр товара:'}

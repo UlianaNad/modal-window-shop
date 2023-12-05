@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledOption = styled.span`
   font-weight: 600;
+  font-size: 13px;
 `;
 export const Example = styled.div`
     width: 400px;
@@ -15,15 +16,15 @@ export const Example = styled.div`
     position: absolute;
     display: flex;
     justify-content: center;
-    top: 10px; /* Move the top of the pseudo-element to the middle of the parent */
+    top: 10px; 
     left: 50%;
     color: rgb(0,161,82);
     font-weight: 600;
     transform: translateX(-50%);
     width: 80%;
     height: 2px;
-    background-color: grey; /* Change the color as needed */
-    z-index: 1; /* Ensure the line is above the item's content */
+    background-color: grey; 
+    z-index: 1; 
   }
 
   /* Vertical line */
@@ -35,13 +36,13 @@ export const Example = styled.div`
     color: rgb(0,161,82);
     font-weight: 600;
     top: 50%;
-    left: 10px; /* Move the left side of the pseudo-element to the middle of the parent */
-    transform: translateY(-50%); /* Center the pseudo-element horizontally */
+    left: 10px; 
+    transform: translateY(-50%);
     width: 2px;
     height:  80%;
-    background-color: grey; /* Change the color as needed */
-    z-index: 1; /* Ensure the line is above the item's content */
-    writing-mode: vertical-lr; /* Vertical writing mode, right-to-left */
+    background-color: grey; 
+    z-index: 1; 
+    writing-mode: vertical-lr; 
   text-orientation: mixed;
   }
 `;
@@ -93,3 +94,11 @@ export const StyledButton = styled.button.attrs(props => ({
   }
 `;
 StyledButton.shouldForwardProp = prop => prop !== 'isimageclicked';
+
+export const StyledItemName = styled.h1`
+    margin-top: 30px;
+    color: #00a152;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 15px;
+`;

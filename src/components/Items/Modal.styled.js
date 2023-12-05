@@ -39,6 +39,11 @@ export const StyledOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1200;
 
+  @media (max-width: 425px) {
+    width: 100%;
+    height: 100%;
+  }
+
 `;
 export const StyledModal = styled.div`
   width: calc(100vw - 80px);
@@ -50,7 +55,7 @@ export const StyledModal = styled.div`
 
   
   @media (max-width: 425px) {
-    padding: 0;
+    padding: 10px;
   }
 `;
 export const StyledCloseButton = styled.button`
@@ -79,6 +84,7 @@ export const StyledCloseButton = styled.button`
     background-color: #c48000;
   }
   @media (max-width: 425px) {
-    min-width: 100%;
+    width:150px;
+    margin-bottom: 10px;
   }
 `;
