@@ -53,30 +53,34 @@ export const StyledModal = styled.div`
   }
 `;
 export const StyledCloseButton = styled.button`
-  position: absolute;
-  right: 10px;
-  display: inline-block;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
-  border-radius: 4px;
-  color: #fff;
-  border: 0;
-  background: #ffa700;
-  min-width: 160px;
-  transition: 0.4s;
-  text-transform: uppercase;
+position: absolute;
+    right: 4px;
+    display: flex;
+    padding: 4px 5px;
+    margin-right: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #fff;
+    border: 0;
+    background: #ffa700;
+    transition: 0.4s;
+    text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+
+  svg{
+    fill: white;
+  }
 
   &:hover {
     background-color: #c48000;
   }
-  @media (max-width: 425px) {
+  /* @media (max-width: 425px) {
     min-width: 90px;
     font-size: 12px;
     padding: 5px 10px;
@@ -84,5 +88,5 @@ export const StyledCloseButton = styled.button`
     position: fixed;
     right: 30px;
     top: 40px;
-  }
+  } */
 `;

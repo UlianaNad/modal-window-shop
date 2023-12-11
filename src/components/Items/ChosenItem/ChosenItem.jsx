@@ -4,15 +4,14 @@ import {
   Example,
   ExampleItem,
   HiddenOnPhone,
-  StyledButton,
+  LeftArrow,
   StyledItemName,
   StyledOption,
+  TopArrow,
 } from './ChosenItem.styled';
 
 const ChosenItem = ({ product, values, options, language }) => {
   const [scale, setScale] = useState(null);
-  const [isimageclicked, setisimageclicked] = useState(true);
-  const [isExampleOpen, setIsExampleOpen] = useState(false);
 
   useEffect(() => {
     const originalWidth = options?.customDimensions?.width || 1;
@@ -21,88 +20,82 @@ const ChosenItem = ({ product, values, options, language }) => {
     let scaleToFit;
 
     if (originalWidth < 500 && originalHeight < 500) {
+      scaleToFit = 0.6;
+    } else if (
+      (originalWidth >= 500 && originalWidth < 1600) &&
+      (originalHeight >= 500 && originalHeight < 1600)
+    ) {
       scaleToFit = 0.4;
+      console.log(scaleToFit);
     } else if (
-      originalWidth >= 500 &&
-      originalWidth < 1500 &&
-      originalHeight >= 500 &&
-      originalHeight < 1500
+      (originalWidth >= 1600 || originalWidth < 2700) &&
+      (originalHeight >= 1600 || originalHeight < 2700)
     ) {
-      scaleToFit = 0.5;
-    } else if (
-      originalWidth >= 1500 &&
-      originalHeight >= 1500 &&
-      originalWidth <= 3000 &&
-      originalHeight <= 3000
-    ) {
-      scaleToFit = 0.7;
-    } else if (originalWidth > 3000 && originalHeight > 3000) {
       scaleToFit = 0.3;
+      console.log(scaleToFit);
     }
 
     // Ensure a minimum scale factor to prevent the size from becoming too small
-    scaleToFit = Math.max(scaleToFit, 0.1);
+    // scaleToFit = Math.max(scaleToFit, 0.1);
 
     setScale(scaleToFit);
   }, [options]);
 
-  const handleImage = () => {
-    setisimageclicked(true);
-    setIsExampleOpen(false);
-  };
-
-  const handleExample = () => {
-    setisimageclicked(false);
-    setIsExampleOpen(true);
-  };
+  const rotate = true;
   return (
     <section>
       <StyledItemName>{product.name}</StyledItemName>
-      <p>
-        <StyledOption>
-          {language === 'ua' ? 'Розмір товару:' : 'Розмeр товара:'}
-        </StyledOption>{' '}
-        {language === 'ua' ? 'ширина' : 'ширина'}
-        {product.dimensions.width} мм{' '}
-        {language === 'ua' ? 'і висота' : 'и высота'}{' '}
-        {product.dimensions.height} мм
-      </p>
-      <HiddenOnPhone>
-        <p>
-          <StyledOption>
-            {language === 'ua' ? 'Товщина листа:' : 'Толщина листа:'}{' '}
-          </StyledOption>
-          {product.dimensions.thickness} мм
-        </p>
-        <p>
-          <StyledOption>
-            {language === 'ua' ? 'Ціна за 1 лист: ' : 'Цена за 1 лист: '}
-          </StyledOption>
-          {product.offers.price} {product.offers.priceCurrency}
-        </p>
-     
+      <StyledOption>
+        {language === 'ua' ? 'Розмір товару:' : 'Розмeр товара:'}
+      </StyledOption>
+      {language === 'ua' ? 'ширина ' : 'ширина '}
+      {product.dimensions.width} мм
+      {language === 'ua' ? ' і висота ' : 'и высота '}
+      <StyledOption>
+        {language === 'ua' ? 'Товщина листа:' : 'Толщина листа:'}
+      </StyledOption>
+      {product.dimensions.thickness} мм
+      <StyledOption>
+        {language === 'ua'
+          ? 'Кількість листів у розкрої:'
+          : 'Количество листов в разкрое:'}
+      </StyledOption>
+      {values.possibleAmountOfPieces ? values.possibleAmountOfPieces : 0} шт.
+      <StyledOption>
+        {language === 'ua' ? 'Ціна за 1 лист: ' : 'Цена за 1 лист: '}
+      </StyledOption>
+      {product.offers.price} {product.offers.priceCurrency}
       <div>
-        <StyledButton
-          isimageclicked={isimageclicked ? 'true' : null}
-          onClick={handleImage}
-        >
-          {language === 'ua' ? 'Обраний товар' : 'Выбраный товар'}
-        </StyledButton>
-
-        <StyledButton
-          isimageclicked={isExampleOpen ? 'true' : null}
-          onClick={handleExample}
-        >
-          {language === 'ua' ? 'Візуалізація порізки' : 'Визуализация порезки'}
-        </StyledButton>
+        <StyledOption>
+          {language === 'ua'
+            ? 'Загальна кількість листів для порізки: '
+            : 'Общее количество листов для порезки:'}
+        </StyledOption>
+        <span>
+          {values.AmountOfCustomParticles ? values.AmountOfCustomParticles : 0}{' '}
+          шт.
+        </span>
+        {options?.edgeWidth ? (
+          <div>
+            <StyledOption>
+              {language === 'ua' ? 'Товщина кромки:' : 'Толщина кромки:'}
+            </StyledOption>
+            <span>{options?.edgeWidth ? options?.edgeWidth : 0}</span>
+          </div>
+        ) : null}
       </div>
-      {isimageclicked ? (
-        <img src={product.image} alt="" />
-      ) : (
+      <HiddenOnPhone>
+        <StyledItemName>
+          {language === 'ua' ? 'Візуалізація порізки' : 'Визуализация порезки'}
+        </StyledItemName>
         <Example
           width={options?.customDimensions?.width}
           height={options?.customDimensions?.height}
         >
+          <LeftArrow></LeftArrow>
+          <TopArrow></TopArrow>
+          <LeftArrow rotate={rotate}></LeftArrow>
+          <TopArrow rotate={rotate}></TopArrow>
           <ExampleItem
             width={options?.customDimensions?.width}
             height={options?.customDimensions?.height}
@@ -119,47 +112,7 @@ const ChosenItem = ({ product, values, options, language }) => {
               ></ExampleItem>
             ))}
         </Example>
-      )}
- </HiddenOnPhone>
-      <div>
-        <h2>{language === 'ua' ? 'Параметри розкрою' : 'Параметры разкроя'}</h2>
-        <p>
-          <StyledOption>
-            {language === 'ua'
-              ? 'Кількість листів у розкрої:'
-              : 'Количество листов в разкрое:'}
-          </StyledOption>
-          {values.possibleAmountOfPieces ? values.possibleAmountOfPieces : 0}
-          шт.
-        </p>
-        <p>
-          <StyledOption>
-            {language === 'ua'
-              ? 'Ціна за 1 вирізаний лист:'
-              : 'Цена за 1 вырезаный лист:'}
-          </StyledOption>
-          <span> {values.cutItemPrice ? values.cutItemPrice : 0} грн</span>
-        </p>
-        <p>
-          <StyledOption>
-            {language === 'ua'
-              ? 'Загальна кількість листів для порізки:'
-              : 'Общее количество листов для порезки:'}
-          </StyledOption>
-          <span>
-            {values.AmountOfCustomParticles
-              ? values.AmountOfCustomParticles
-              : 0}
-            шт.
-          </span>
-        </p>
-        <p>
-          <StyledOption>
-            {language === 'ua' ? 'Загальна вартість:' : 'Общяя стоимость:'}
-          </StyledOption>
-          <span> {values.totalPrice ? values.totalPrice : 0}</span> грн
-        </p>
-      </div>
+      </HiddenOnPhone>
     </section>
   );
 };

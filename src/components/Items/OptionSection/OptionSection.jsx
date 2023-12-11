@@ -12,7 +12,7 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
   const [customDimensions, setCustomDimensions] = useState({});
   const [edgeBlock, setEdgeBlock] = useState(false);
   const [patternDirection, setPatternDirection] = useState('horizontal');
-  const [rotation, setRotation] = useState(0);
+  const [rotation, setRotation] = useState(90);
   const [comment, setComment] = useState('');
   const [edgeWidth, setEdgeWidth] = useState('');
   const [edgesSides, setEdgesSides] = useState({});
@@ -90,12 +90,12 @@ const OptionSection = ({ product, close, handleFormData, language }) => {
     const newRotation = rotation === 0 ? 90 : 0;
     setRotation(newRotation);
     e.target.style.transform = `rotate(${newRotation}deg)`;
-    if (rotation === 0) {
-      e.target.style.width = `110px`;
-      e.target.style.marginTop = `25px`;
+    if (rotation === 90) {
+      e.target.style.width = `90px`;
+      e.target.style.marginLeft = `0px`;
     } else {
-      e.target.style.width = `180px`;
-      e.target.style.marginTop = `5px`;
+      e.target.style.width = `125px`;
+      e.target.style.marginLeft = `25px`;
     }
     setPatternDirection(newRotation === 0 ? 'horizontal' : 'vertical');
   };

@@ -11,6 +11,7 @@ import {
   StyledP,
   StyledSelect,
   StyledTextArea,
+  Wrapper,
   WrapperButtons,
 } from '../OptionSection.styled';
 import EdgePreview from '../EdgePreview/EdgePreview';
@@ -30,7 +31,7 @@ const DetailDemansions = ({
   const { dimensions } = product;
   return (
     <div>
-      <div className="item-sizes-block">
+      <Wrapper>
         <StyledBlockName>
           {language === 'ua' ? 'Розміри:' : 'Рaзмeры:'}
         </StyledBlockName>
@@ -77,7 +78,7 @@ const DetailDemansions = ({
           name="total-amount"
           placeholder="шт."
         />
-      </div>
+      </Wrapper>
       <div className="edge-block">
         <StyledBlockName>Кромка:</StyledBlockName>
         <WrapperButtons>
@@ -121,7 +122,7 @@ const DetailDemansions = ({
         </StyledBlockName>
         <StyledImg
           onClick={handleImageClick}
-          src={require('./pattern.jpg')}
+          src={require('./wood.jpg')}
           alt="pattern"
         />
       </PatternRotation>

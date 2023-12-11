@@ -48,7 +48,7 @@ export const FieldChoiceLeft = styled.div`
     display: block;
     border-radius: 20px;
     margin: 0 auto;
-    margin-top: -50px;
+    margin-top: -43px;
     margin-left: 10px;
     @media (max-width: 425px) {
       margin-top: -37px;
@@ -102,7 +102,7 @@ export const FieldChoiceRight = styled.div`
     display: block;
     border-radius: 20px;
     margin: 0 auto;
-    margin-top: -50px;
+    margin-top: -43px;
     margin-right: 10px;
     @media (max-width: 425px) {
       margin-top: -37px;
