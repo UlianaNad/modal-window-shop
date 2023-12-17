@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from './Items/Modal';
 import styled from 'styled-components';
 import { products } from './data/data';
 import { useState } from 'react';
+import { ProductContext } from 'context/ContextProvider';
+
 
 export const App = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [product, setProduct] = useState(null);
+  
+  const {chosenProduct} = useContext(ProductContext)
 
   const toggleModal = product => {
     const body = document.body;
@@ -17,7 +20,7 @@ export const App = () => {
     }
 
     setIsOpen(prev => !prev);
-    setProduct(product);
+    chosenProduct(product);
   };
 
   return (
@@ -31,7 +34,7 @@ export const App = () => {
           </Item>
         ))}
       </StyledUl>
-      {isOpen ? <Modal product={product} close={toggleModal} /> : null}
+      {isOpen ? <Modal close={toggleModal} /> : null}
       <div height='1200px' ></div>
     </AppWrapper>
   );
@@ -51,7 +54,7 @@ const AppWrapper = styled.div`
 
     @media (max-width: 425px) {
       width: 90%;
-    }
+    } 
   }
 `;
 

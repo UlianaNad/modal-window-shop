@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { ChoiceWrap, FieldChoiceBottom, FieldChoiceLeft, FieldChoiceRight, FieldChoiceTop, SpanLabel, StyledInputCheckbox } from './EdgePreview.styled';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { StyledBlockName } from '../OptionSection.styled';
+import { ProductContext } from 'context/ContextProvider';
 
-const EdgePreview = ({handleEdgeSide, language}) => {
-  const [checkedValues, setValue] = useState([]);
-
-  useEffect(() => {
-    handleEdgeSide(checkedValues)
-  },[checkedValues, handleEdgeSide]);
+const EdgePreview = () => {
+  const {language, setEdgeSide} = useContext(ProductContext)
   
   const handleChange = ({ target }) => {
     const { value, checked } = target;
-    setValue((prev) =>
-      checked ? [...prev, value] : [...prev.filter((choice) => choice !== value)]
+   
+    setEdgeSide((prev) =>
+      checked ? [...prev, value] : [...prev?.filter((choice) => choice !== value)]
+      
     );
   };
+  
 
   const renderCheckbox = (name, label) => (
     <>
@@ -74,6 +74,6 @@ const EdgePreview = ({handleEdgeSide, language}) => {
 
 export default EdgePreview;
 
-EdgePreview.propTypes = {
-  handleEdgeSide: PropTypes.func.isRequired,
-};
+// EdgePreview.propTypes = {
+//   handleEdgeSide: PropTypes.func.isRequired,
+// };

@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 export const BodyWrapper = styled.div`
   color: #001a34;
-
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: nowrap;
+
+
   ul,
   li {
     padding: 0;
@@ -19,12 +18,11 @@ export const BodyWrapper = styled.div`
 
     @media (max-width: 425px) {
       width: 100%;
-    }
+    } 
   }
-
-  @media (max-width: 425px) {
+ @media (max-width: 425px) {
     flex-direction: column;
-  }
+  } 
 `;
 
 export const StyledOverlay = styled.div`
@@ -80,13 +78,13 @@ position: absolute;
   &:hover {
     background-color: #c48000;
   }
-  /* @media (max-width: 425px) {
-    min-width: 90px;
+  @media (max-width: 425px) {
+    min-width: 50px;
     font-size: 12px;
     padding: 5px 10px;
     margin-bottom: 0;
     position: fixed;
     right: 30px;
     top: 40px;
-  } */
+  }
 `;

@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
 export const StyledOption = styled.span`
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   margin-right: 3px;
+`;
+export const StyledSpan = styled.span`
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 3px;
 `;
 
 export const Example = styled.div`
@@ -14,7 +19,7 @@ export const Example = styled.div`
 
   /* Horizontal line */
   &::before {
-    content: "${props => props.width !== undefined && props.width !== 0 ? props.width + 'mm' : '350mm'}";
+    content: "${props => props.width !== null && props.width !== 0 ? props.width + 'mm' : '350mm'}";
     position: absolute;
     display: flex;
     justify-content: center;
@@ -28,7 +33,7 @@ export const Example = styled.div`
 
   /* Vertical line */
   &::after {
-    content: "${props => props.height !== undefined && props.height !== 0 ? props.height + 'mm' : '350mm'}";
+    content: "${props => props.height !== null && props.height !== 0 ? props.height + 'mm' : '350mm'}";
     position: absolute;
     display: flex;
     justify-content: center;
@@ -47,29 +52,29 @@ export const Example = styled.div`
 
 export const ExampleItem = styled.div`
   width: ${props =>
-    props.width !== undefined && props.width !== 0
+    props.width !== null && props.width !== 0
       ? props.width * props.scale + 'px'
       : '350px'};
   height: ${props =>
-    props.height !== undefined && props.height !== 0
+    props.height !== null && props.height !== 0
       ? props.height * props.scale + 'px'
       : '350px'};
   background-color: ${props =>
-    props.edgesSides ? 'transparent' : 'white'};
+    props.edgeside ? 'transparent' : 'white'};
   border-top: ${props =>
-    props.edgesSides === 'top-choice'
+    props.edgeside === 'top-choice'
       ? '10px solid rgb(0,161,82)'
       : '1px solid rgb(0,161,82, 0.5)'};
   border-bottom: ${props =>
-    props.edgesSides === 'choice-bottom'
+    props.edgeside === 'choice-bottom'
       ? '10px solid rgb(0,161,82)'
       : '1px solid rgb(0,161,82, 0.5)'};
   border-left: ${props =>
-    props.edgesSides === 'left-choice'
+    props.edgeside === 'left-choice'
       ? '10px solid rgb(0,161,82)'
       : '1px solid rgb(0,161,82, 0.5)'};
   border-right: ${props =>
-    props.edgesSides === 'choice-right'
+    props.edgeside === 'choice-right'
       ? '10px solid rgb(0,161,82)'
       : '1px solid rgb(0,161,82, 0.5)'};
   position: absolute;
@@ -190,4 +195,8 @@ export const TopArrow = styled.div`
     left: ${props => (props.rotate ? '-8px' : '-7px')};
   }
   
+`;
+
+export const WrapInfo = styled.div`
+  margin-bottom: 10px;
 `;
