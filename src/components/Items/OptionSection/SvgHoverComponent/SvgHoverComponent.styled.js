@@ -50,4 +50,7 @@ export const StyledInfoSvg = styled.span.attrs(props => ({
   &:hover::after{
     display: block;
   }
+  & svg{
+    fill: rgb(0,161,82, 0.6);
+  }
 `;

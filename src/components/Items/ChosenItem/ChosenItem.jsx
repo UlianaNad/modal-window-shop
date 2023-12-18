@@ -32,17 +32,14 @@ const ChosenItem = () => {
       scaleToFit = 0.6;
     } else if (width >= 500 && width < 1600 && height >= 500 && height < 1600) {
       scaleToFit = 0.4;
-      console.log(scaleToFit);
     } else if (
       (width >= 1600 || width < 2700) &&
       (height >= 1600 || height < 2700)
     ) {
       scaleToFit = 0.3;
-      console.log(scaleToFit);
+
     }
 
-    // Ensure a minimum scale factor to prevent the size from becoming too small
-    // scaleToFit = Math.max(scaleToFit, 0.1);
 
     setScale(scaleToFit);
   }, [width, height]);
@@ -136,7 +133,6 @@ const ChosenItem = () => {
                 edgeside={edge}
               ></ExampleItem>
             ))}
-          {console.log(width, height)}
         </Example>
       </HiddenOnPhone>
     </section>

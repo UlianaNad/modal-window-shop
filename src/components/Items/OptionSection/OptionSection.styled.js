@@ -20,10 +20,11 @@ export const StyledDimensions = styled.ul`
 `;
 
 export const StyledLi = styled.li`
-  min-width: 220px;
+width: calc(100%/2 - 10px);
+
 `;
 export const StyledInput = styled.input`
-  width: 220px;
+  /* width: 220px; */
   height: 25px;
   border-width: 1px;
   border-style: solid;
@@ -41,6 +42,9 @@ export const StyledInput = styled.input`
     border-color: rgba(0, 161, 82, 0.5);
     box-shadow: 0 0 5px 1px #00a152;
   }
+
+
+
 `;
 export const StyledP = styled.p`
   font-size: 10px;
@@ -69,6 +73,9 @@ export const StyledImg = styled.img`
   transition: all 0.5s;
 `;
 export const StyledButton = styled.button`
+width: ${props =>
+    props.edge ? `calc(50% - 10px)` : `calc(100%)`};
+  
   display: inline-block;
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -83,7 +90,7 @@ export const StyledButton = styled.button`
   color: #fff;
   border: 0;
   background-color: #00a152;
-  min-width: 235px;
+  /* min-width: 235px; */
   position: relative;
   overflow: hidden;
   transition: 0.4s;
@@ -147,7 +154,7 @@ export const StyledSelect = styled.select`
   }
 `;
 export const StyledTextArea = styled.textarea`
-  min-width: 515px;
+    width: calc(100% - 16px);
   border-width: 1px;
   border-style: solid;
   border-color: rgb(225, 225, 225);
@@ -164,19 +171,24 @@ export const StyledTextArea = styled.textarea`
     border-color: rgba(0, 161, 82, 0.5);
     box-shadow: 0 0 5px 1px #00a152;
   }
+  /* @media (max-width: 1100px) {
+    min-width: 455px;
+  }
   @media (max-width: 425px) {
     width: 95%;
     min-width: 0;
-  }
+  } */
 `;
 export const WrapButtons = styled.div`
   display: flex;
   flex-direction: column;
+
 `;
 
 export const WrapperButtons = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   /* @media (max-width: 425px) {
     display: flex;
     gap: 10px;

@@ -3,10 +3,6 @@ import { StyledInfoSvg } from './SvgHoverComponent.styled';
 
 
 const SvgHoverComponent = ({dimensions, edge, amount,rotation, comment}) => {
-
-  console.log(dimensions);
-// const { hoverContent } = useContext(ProductContext);
-// const {dimensionsContent, totalAmountContent, edgeContent, rotationContent, commentContent} = hoverContent;
   return (
     <StyledInfoSvg dimensions={dimensions} edge={edge} amount={amount} rotation={rotation} comment={comment}>
       <svg

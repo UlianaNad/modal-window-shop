@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Modal from './Items/Modal';
+import Modal from './Items/Modal/Modal';
 import styled from 'styled-components';
 import { products } from './data/data';
 import { useState } from 'react';

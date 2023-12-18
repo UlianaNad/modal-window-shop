@@ -1,7 +1,7 @@
-import React, { useCallback, useContext } from 'react';
-import ChosenItem from './ChosenItem/ChosenItem';
-import OptionSection from './OptionSection/OptionSection';
-//import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import ChosenItem from '../ChosenItem/ChosenItem';
+import OptionSection from '../OptionSection/OptionSection';
+
 import {
   BodyWrapper,
   StyledModal,
@@ -10,11 +10,8 @@ import {
 } from './Modal.styled';
 import { ProductContext } from 'context/ContextProvider';
 
-const Modal = ({close }) => {
-
-  const {product, setLanguage} = useContext(ProductContext)
- 
-
+const Modal = ({ close }) => {
+  const { setLanguage } = useContext(ProductContext);
 
   const handleClickOutside = e => {
     if (e.target === e.currentTarget) {
@@ -22,10 +19,6 @@ const Modal = ({close }) => {
     }
   };
 
-  const handleFormData = useCallback(data => {
-    //setOptions(data);
-    window.localStorage.setItem(`customOptions${product.id}`, JSON.stringify(data));
-  }, [product.id]);
 
   const handleClickChangeLanguage = e => {
     if (e.target.dataset.lang === 'ua') {
@@ -34,7 +27,6 @@ const Modal = ({close }) => {
       setLanguage('ru');
     }
   };
-
 
   return (
     <StyledOverlay onClick={handleClickOutside}>
@@ -61,11 +53,8 @@ const Modal = ({close }) => {
         </StyledCloseButton>
 
         <BodyWrapper>
-          <ChosenItem    />
-          <OptionSection
-            close={close}
-            handleFormData={handleFormData}
-          />
+          <ChosenItem />
+          <OptionSection close={close} />
         </BodyWrapper>
       </StyledModal>
     </StyledOverlay>
@@ -74,16 +63,4 @@ const Modal = ({close }) => {
 
 export default Modal;
 
-// Modal.propTypes = {
-//   product: PropTypes.shape({
-//     dimensions: PropTypes.shape({
-//       width: PropTypes.number.isRequired,
-//       height: PropTypes.number.isRequired,
-//     }).isRequired,
-//     offers: PropTypes.shape({
-//       price: PropTypes.number.isRequired,
-//     }).isRequired,
-//   }).isRequired,
-//   close: PropTypes.func.isRequired,
-//   language: PropTypes.string,
-// };
+
